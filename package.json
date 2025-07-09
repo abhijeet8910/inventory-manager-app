@@ -1,0 +1,11 @@
+{
+  "name": "inventory-management",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run build --filter services/*"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.0",
+    "typescript": "^4.0.0"
+  }
+}
