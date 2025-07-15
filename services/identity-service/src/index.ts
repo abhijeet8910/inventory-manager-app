@@ -1,11 +1,25 @@
-import express from "express";
+import express  from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
+import {auth} from "./utils/auth";
+import { toNodeHandler } from "better-auth/node";
+import authRoutes from './routes/auth.routes';
+
+
+
+const Port = process.env.PORT || 5500;
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-app.get("/health", (req, res) => {
-  res.status(200).json({ message: "ok" });
-});
+app.all("api/auth/*splat", toNodeHandler(auth));
+app.use('/api', authRoutes);
 
-app.listen(5501, () => {
-  console.log(`Identity Service running on port 5501 ...`);
+
+
+
+app.listen(Port, () => {
+  console.log(`Identity Service running on port ${Port}...`);
 });
